@@ -78,12 +78,9 @@ app.post('/delete', (req, res) => {
 
   if (listName === homeStartingContent) {
     Post.findByIdAndRemove(checkedItemId, (err) => {
-      if (err) {
-        console.log('ada yang error');
-      } else {
-        console.log('berhasil');
+      if (!err) {
         res.redirect('/');
-      }
+      } 
     });
   } else {
     Post.findOneAndUpdate({ title: listName }, { $pull: { content: { _id: checkedItemId } } }, function (err, foundList) {
@@ -94,6 +91,4 @@ app.post('/delete', (req, res) => {
   }
 });
 
-app.listen(3000, function () {
-  console.log('Server started on port 3000');
-});
+app.listen(3000);
